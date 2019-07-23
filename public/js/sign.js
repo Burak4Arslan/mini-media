@@ -47,19 +47,3 @@ function checkParamsSign(email,username,password) {
     }
 
 }
-
-
-
-
-function wrongParamsSign(message) {
-
-    console.log(message)
-
-}
-
-
-function rightParamsSign(message) {
-
-    console.log(message)
-
-}

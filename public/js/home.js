@@ -1,5 +1,8 @@
 
 
+// Get saved data from sessionStorage
+var theUser = sessionStorage.getItem('user');
+theUser = JSON.parse(theUser);
 writer();
 
 function writer() {
@@ -38,13 +41,14 @@ document.getElementById('postButton').addEventListener('click',(e)=> {
         body: JSON.stringify({
             post: {
                 post: myPost
-            }
+            },
+            user : theUser
         })
     }).then( (response)=> {
 
         if(response.status==200) {
-
-            window.location.href = '/home';
+            document.getElementById('postText').value = '';
+            writer();
 
         } else {
 

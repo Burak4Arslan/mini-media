@@ -1,4 +1,7 @@
 
+var theUser = sessionStorage.getItem('user');
+theUser = JSON.parse(theUser);
+
 let newpppath;
 var isPhoto = false; 
 window.addEventListener('keyup',(e)=> {
@@ -38,7 +41,8 @@ document.getElementById('changepp').addEventListener('click',()=> {
         body: JSON.stringify({
             pp: {
                 pppath: newpppath
-            }
+            },
+            user : theUser
         })
     }).then((response)=> {
         console.log(response);

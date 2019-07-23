@@ -1,4 +1,5 @@
 
+var theUser;
 
 document.getElementById('loginButton').addEventListener("click", ()=> {
 
@@ -26,35 +27,29 @@ function checkParamsLogin(username,password) {
                     password: password
                 }
             })
-        }).then((response)=> {
+        }).then(function(response) {
 
-            if(response.status==200) {
-
-                window.location.href = response.url;
-
+            if(response.status=200) {
+                return response.json();
             } else {
-
                 document.getElementById('alertAlreadyDiv').style.display = "initial";
-
                 setTimeout(()=> {document.getElementById('alertAlreadyDiv').style.display = "none";},2000)
-
+                return -1;
             }
 
-        });
+          }).then(function(data) {
+            if(data != -1) {
+                theUser = data;
+                // Save data to sessionStorage
+                sessionStorage.setItem('user', JSON.stringify(theUser));
+                window.location.href = '/home';
+            }
+
+          });
+
+        // 
 
     }
 
-
-}
-
-function wrongParamsLogin(message) {
-
-    console.log(message)
-
-}
-
-function rightParamsLogin(message) {
-
-    console.log(message)
 
 }
