@@ -51,55 +51,53 @@ app.post('/sign', (req,res)=> {
 
             username : data.user.username
 
-            }, (error,result)=> {
+        }, (error,result)=> {
 
-                if(result) {
+            if(result) {
 
-                    res.sendStatus(301);
+                res.sendStatus(301);
 
-                }
-                else {
+            }
+            else {
 
-                    db.collection('users').findOne({
+                db.collection('users').findOne({
 
-                        email: data.user.email
+                    email: data.user.email
 
-                    },(error,result)=> {
-                        if(result) {
+                },(error,result)=> {
+                    if(result) {
 
-                            res.sendStatus(301);
+                        res.sendStatus(301);
         
-                        }
-                        else {
-                            //Databasete Bulunmadı eklenecek
-                            db.collection('users').insertOne( {
+                    }
+                    else {
+                        //Databasete Bulunmadı eklenecek
+                        db.collection('users').insertOne( {
 
-                                email : data.user.email,
-                                username: data.user.username,
-                                password:data.user.password,
-                                ppurl: ''
+                            email : data.user.email,
+                            username: data.user.username,
+                            password:data.user.password,
+                            ppurl: ''
                 
-                            } ,
-                            (error,result) => {
+                        } ,
+                        (error,result) => {
                                     
-                                if(error) {
-                                    return res.sendStatus(301);
-                                }
+                            if(error) {
+                                return res.sendStatus(301);
+                            }
                                     
-                                res.sendStatus(200);
-                            })
-                        }
+                            res.sendStatus(200);
 
-                    })
+                        })
+                    }
+
+                })
                     
 
-                }
+            }
 
-            })
-
-            
-        
-    
+        })
+        client.close();
     })
 
 
@@ -124,13 +122,14 @@ app.post('', (req,res)=>{
 
         }, (error,result)=> {
             if(result) {
-                console.log(result)
+                // console.log(result)
                 res.send(JSON.stringify(result));
 
             } else {
                 res.sendStatus(301);
             }
         });
+        client.close();
     })
 })
 
@@ -164,6 +163,7 @@ app.post('/home', (req,res)=>{
             res.sendStatus(200);
 
         })
+        client.close();
     })
 })
 
@@ -190,14 +190,14 @@ app.get('/home/posts', (req,res) => {
             myPosts = posts;
             res.send({ posts: myPosts });
         })
-
+        client.close();
     });
 
 }) 
 
 app.get('/home/pp', (req,res) => {
 
-        res.render('changepp');
+    res.render('changepp');
 
 })
 
@@ -236,7 +236,7 @@ app.post('/home/pp', (req,res) => {
                 res.sendStatus(305);
             }
         });
-        
+        client.close();
     })
 })
 
